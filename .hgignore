@@ -1,0 +1,4 @@
+syntax: glob
+
+dist/*
+xontrib_ssh_agent.egg-info/*
