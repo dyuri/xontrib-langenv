@@ -14,8 +14,13 @@ def create_alias(output):
         commands += line.strip()[:-1].split('|')
 
     def pyenv(args):
-        cmd = args[0]
-        arguments = args[1:]
+        if args and len(args):
+            cmd = args[0]
+            arguments = args[1:]
+        else:
+            cmd = None
+            arguments = []
+
         if cmd in commands:
             source-bash --suppress-skip-message $(@(PYENV) sh-@(cmd) @(arguments))
         else:

@@ -8,7 +8,7 @@ except (IOError, OSError):
 
 setup(
     name="xontrib-pyenv",
-    version='1.0.0',
+    version='1.0.1',
     url='https://bitbucket.org/dyuri/xontrib-pyenv',
     license='MIT',
     author='Gyuri Horák',
