@@ -4,7 +4,7 @@ import builtins
 
 __all__ = ()
 
-PYENV = $(which pyenv)
+PYENV = $(which pyenv).strip()
 PYENV_VENV = None
 
 
