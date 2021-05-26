@@ -31,14 +31,18 @@ def create_alias(output):
 
 # check if pyenv installed
 if PYENV:
+    PYENV_PATH = $(@(PYENV) init --path)
     PYENV_ENV = $(@(PYENV) init -)
     PYENV_VENV = $(@(PYENV) virtualenv-init -)
     
+    # add shims to path
+    source-bash --login=false --interactive=false --suppress-skip-message @(PYENV_PATH) e>/dev/null
+
     # init pyenv
-    source-bash --suppress-skip-message @(PYENV_ENV) e>/dev/null
+    source-bash --login=false --interactive=false --suppress-skip-message @(PYENV_ENV) e>/dev/null
 
     if PYENV_VENV:
         # init pyenv-virtualenv
-        source-bash --suppress-skip-message @(PYENV_VENV) e>/dev/null
+        source-bash --login=false --interactive=false --suppress-skip-message @(PYENV_VENV) e>/dev/null
 
     create_alias(PYENV_ENV)
