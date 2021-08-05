@@ -33,7 +33,7 @@ def create_alias(output):
 if PYENV:
     PYENV_PATH = $(@(PYENV) init --path)
     PYENV_ENV = $(@(PYENV) init -)
-    PYENV_VENV = $(@(PYENV) virtualenv-init -)
+    PYENV_VENV = $(@(PYENV) virtualenv-init - 2> /dev/null)
     
     # add shims to path
     source-bash --login=false --interactive=false --suppress-skip-message @(PYENV_PATH) e>/dev/null
