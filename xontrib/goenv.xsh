@@ -2,7 +2,7 @@
 """
 import builtins
 import os
-from .pygonerb_common import get_bin, create_alias
+from .langenv_common import get_bin, create_alias
 
 __all__ = ()
 
