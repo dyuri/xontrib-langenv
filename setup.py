@@ -7,13 +7,13 @@ except (IOError, OSError):
     LONG_DESC = ''
 
 setup(
-    name="xontrib-pyenv",
+    name="xontrib-langenv",
     version='1.0.6',
-    url='https://github.com/dyuri/xontrib-pyenv',
+    url='https://github.com/dyuri/xontrib-langenv',
     license='MIT',
     author='Gyuri Horák',
     author_email='dyuri@horak.hu',
-    description='Pyenv integration for xonsh',
+    description='Pyenv/Nodenv/Goenv/Rbenv integration for xonsh',
     long_description=LONG_DESC,
     long_description_content_type='text/markdown',
     packages=['xontrib'],
