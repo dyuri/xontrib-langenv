@@ -13,6 +13,6 @@ if NODENV:
     NODENV_ENV = $(@(NODENV) init -)
 
     # init nodenv
-    source-bash --login=false --interactive=false --suppress-skip-message @(NODENV_ENV) e>/dev/null
+    source-bash -n --suppress-skip-message @(NODENV_ENV) e>/dev/null
 
     create_alias("nodenv", NODENV, NODENV_ENV)

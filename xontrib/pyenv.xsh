@@ -15,13 +15,13 @@ if PYENV:
     PYENV_VENV = $(@(PYENV) virtualenv-init - 2> /dev/null)
 
     # add shims to path
-    source-bash --login=false --interactive=false --suppress-skip-message @(PYENV_PATH) e>/dev/null
+    source-bash -n --suppress-skip-message @(PYENV_PATH) e>/dev/null
 
     # init pyenv
-    source-bash --login=false --interactive=false --suppress-skip-message @(PYENV_ENV) e>/dev/null
+    source-bash -n --suppress-skip-message @(PYENV_ENV) e>/dev/null
 
     if PYENV_VENV:
         # init pyenv-virtualenv
-        source-bash --login=false --interactive=false --suppress-skip-message @(PYENV_VENV) e>/dev/null
+        source-bash -n --suppress-skip-message @(PYENV_VENV) e>/dev/null
 
     create_alias("pyenv", PYENV, PYENV_ENV)
