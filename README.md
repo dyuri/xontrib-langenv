@@ -56,3 +56,7 @@ xontrib load rbenv
 
 This xontrib initializes `rbenv` when `xonsh` is started.
 After initialization `rbenv` commands works as they would do in any *classic* shell.
+
+## Compatibility notes
+
+If you are using `xonsh` v0.11 (or older) and you have issues with the latest version of this xontrib, try to downgrade it to version 1.0.6.
