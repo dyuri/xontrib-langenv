@@ -4,6 +4,7 @@ import builtins
 import os
 from .langenv_common import get_bin, create_alias
 from builtins        import __xonsh__    # XonshSession (${...} is '__xonsh__.env')
+from xonsh.lib       import subprocess as subproc
 
 __all__ = ()
 
@@ -22,3 +23,6 @@ if GOENV:
     envx["GOENV_SHELL"] = "Python"
 
     create_alias(base, GOENV)
+
+    full_cmd = [base] + ['rehash','--only-manage-paths']
+    subproc.run(full_cmd)
