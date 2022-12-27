@@ -10,12 +10,8 @@ PYENV = get_bin('pyenv')
 if PYENV:
     PYENV_VENV = None
 
-    PYENV_PATH = $(@(PYENV) init --path)
     PYENV_ENV = $(@(PYENV) init -)
     PYENV_VENV = $(@(PYENV) virtualenv-init - 2> /dev/null)
-
-    # add shims to path
-    source-bash -n --suppress-skip-message @(PYENV_PATH) e>/dev/null
 
     # init pyenv
     source-bash -n --suppress-skip-message @(PYENV_ENV) e>/dev/null
