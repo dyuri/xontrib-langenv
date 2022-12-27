@@ -1,6 +1,7 @@
 """Common functions
 """
 import builtins
+import subprocess
 from os.path import join, exists
 
 from builtins import __xonsh__  # XonshSession (${...} is '__xonsh__.env')
@@ -30,9 +31,13 @@ def create_alias(base, bin, output):
             arguments = []
 
         if cmd in commands:
-            cmd_run = [bin] + ['sh-'+cmd] + arguments
-            cmd_run_out = subproc.check_output(cmd_run).decode()
             cmd_bash = ['source-bash','--suppress-skip-message',cmd_run_out]
+            full_cmd = [bin] + ['sh-'+cmd] + arguments
+            cmd_run = subprocess.run(full_cmd,capture_output=True,encoding="UTF-8")
+            cmd_out = cmd_run.stdout
+            cmd_err = cmd_run.stderr
+            if cmd_err:
+                print(cmd_err.rstrip('\n'))
             subproc.run(cmd_bash)
         else:
             cmd_full = [bin] + args
