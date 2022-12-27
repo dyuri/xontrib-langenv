@@ -11,7 +11,7 @@ if PYENV:
     PYENV_VENV = None
 
     PYENV_PATH = $(@(PYENV) init --path)
-    PYENV_ENV = $(@(PYENV) init -)
+    PYENV_ENV = $(@(PYENV) init - --no-rehash)
     PYENV_VENV = $(@(PYENV) virtualenv-init - 2> /dev/null)
 
     # add shims to path
