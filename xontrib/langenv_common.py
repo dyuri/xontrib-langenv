@@ -17,31 +17,29 @@ def get_bin(base):
     else:
         return bin
 
-def create_alias(base, bin, output):
-    commands = []
-    for line in [l for l in output.split('\n') if 'shell' in l]:
-        commands += line.strip()[:-1].split('|')
 
+def create_alias(base,bin):
     def alias(args):
-        if args and len(args):
-            cmd = args[0]
-            arguments = args[1:]
-        else:
-            cmd = None
-            arguments = []
+        if len(args) == 0:
+            full_cmd    = [bin]
+            subproc.run(full_cmd)
 
-        if cmd in commands:
-            full_cmd = [bin] + ['sh-'+cmd] + arguments
+        elif args[0] in ['rehash','shell']:
+            args[0] = 'sh-' + args[0]
+            full_cmd = [bin] + args
+
             cmd_run = subprocess.run(full_cmd,capture_output=True,encoding="UTF-8")
-            cmd_out = cmd_run.stdout
-            cmd_err = cmd_run.stderr
+            cmd_out = cmd_run.stdout.rstrip('\n')
+            cmd_err = cmd_run.stderr.rstrip('\n')
+
             if cmd_err:
-                print(cmd_err.rstrip('\n'))
+                print(cmd_err)
             else:
                 cmd_bash = ['source-bash','--suppress-skip-message','-n',cmd_out]
                 subproc.run(cmd_bash)
+
         else:
-            cmd_full = [bin] + args
-            subproc.run(cmd_full)
+            full_cmd = [bin] + args
+            subproc.run(full_cmd)
 
     builtins.aliases[base] = alias
