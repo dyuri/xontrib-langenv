@@ -3,16 +3,22 @@
 import builtins
 import os
 from .langenv_common import get_bin, create_alias
+from builtins        import __xonsh__    # XonshSession (${...} is '__xonsh__.env')
 
 __all__ = ()
 
-GOENV = get_bin("goenv")
+base  = 'goenv'
+GOENV = get_bin(base)
 
 # check if goenv installed
 if GOENV:
-    GOENV_ENV = $(@(GOENV) init -)
+    # Set environment
+    envx = __xonsh__.env
+    Home = envx.get("HOME")
+    GOENV_ROOT = envx.get("GOENV_ROOT")
+    if not GOENV_ROOT:
+        GOENV_ROOT = f"{Home}/.{base}"
+    envx.get("PATH").add(f'{GOENV_ROOT}/shims', front=True) # prepend shims to PATH
+    envx["GOENV_SHELL"] = "Python"
 
-    # init goenv
-    source-bash -n --suppress-skip-message @(GOENV_ENV) e>/dev/null
-
-    create_alias("goenv", GOENV, GOENV_ENV)
+    create_alias(base, GOENV)
