@@ -3,25 +3,18 @@
 import builtins
 from os.path import join, exists
 
+from builtins import __xonsh__  # XonshSession (${...} is '__xonsh__.env')
+from xonsh.lib import subprocess as subproc
 
 def get_bin(base):
-    capped = base.upper() + "_ROOT"
-    root = join($HOME, f".{base}") if not capped in ${...} else ${...}[capped]
-    try:
-        bin = $(which @(base) 2> /dev/null).strip()
-    except:
-        bin = None
+    bin = __xonsh__.commands_cache.lazy_locate_binary(base, ignore_alias=True)
     if not bin:
-        new_path = join(root, "bin")
-        if exists(join(new_path, base)):
-            $PATH.add(new_path, front=True, replace=True)
-            bin = $(which @(base)).strip()
-            ${...}[capped] = root
-            return bin
-        else:
-            print(f"Cannot find {base} in {new_path}")
+        envx = __xonsh__.env
+        PATH = envx.get("PATH")
+        print(f"Cannot find '{base}' in {PATH}")
         return None
-    return bin
+    else:
+        return bin
 
 def create_alias(base, bin, output):
     commands = []
