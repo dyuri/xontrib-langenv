@@ -30,9 +30,12 @@ def create_alias(base, bin, output):
             arguments = []
 
         if cmd in commands:
-            source-bash --suppress-skip-message $(@(bin) sh-@(cmd) @(arguments))
+            cmd_run = [bin] + ['sh-'+cmd] + arguments
+            cmd_run_out = subproc.check_output(cmd_run).decode()
+            cmd_bash = ['source-bash','--suppress-skip-message',cmd_run_out]
+            subproc.run(cmd_bash)
         else:
-            @(bin) @(args)
+            cmd_full = [bin] + args
+            subproc.run(cmd_full)
 
     builtins.aliases[base] = alias
-
