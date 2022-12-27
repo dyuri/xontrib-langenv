@@ -37,8 +37,9 @@ def create_alias(base, bin, output):
             cmd_err = cmd_run.stderr
             if cmd_err:
                 print(cmd_err.rstrip('\n'))
-            cmd_bash = ['source-bash','--suppress-skip-message','-n',cmd_out]
-            subproc.run(cmd_bash)
+            else:
+                cmd_bash = ['source-bash','--suppress-skip-message','-n',cmd_out]
+                subproc.run(cmd_bash)
         else:
             cmd_full = [bin] + args
             subproc.run(cmd_full)
