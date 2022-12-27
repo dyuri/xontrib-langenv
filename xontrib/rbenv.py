@@ -3,16 +3,22 @@
 import builtins
 import os
 from .langenv_common import get_bin, create_alias
+from builtins        import __xonsh__    # XonshSession (${...} is '__xonsh__.env')
 
 __all__ = ()
 
-RBENV = get_bin("rbenv")
+base  = 'rbenv'
+RBENV = get_bin(base)
 
 # check if rbenv installed
 if RBENV:
-    RBENV_ENV = $(@(RBENV) init -)
+    # Set environment
+    envx = __xonsh__.env
+    Home = envx.get("HOME")
+    RBENV_ROOT = envx.get("RBENV_ROOT")
+    if not RBENV_ROOT:
+        RBENV_ROOT = f"{Home}/.{base}"
+    envx.get("PATH").add(f'{RBENV_ROOT}/shims', front=True) # prepend shims to PATH
+    envx["RBENV_SHELL"] = "Python"
 
-    # init rbenv
-    source-bash -n --suppress-skip-message @(RBENV_ENV) e>/dev/null
-
-    create_alias("rbenv", RBENV, RBENV_ENV)
+    create_alias(base, RBENV)
