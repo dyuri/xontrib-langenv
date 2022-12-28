@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "xontrib-langenv"
+version = "1.2.0"
+description = "Pyenv/Nodenv/Goenv/Rbenv integration for xonsh"
+authors = ["Gyuri Horak <dyuri@horak.hu>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/dyuri/xontrib-langenv"
+packages = [{include = "xontrib"}]
+classifiers=[
+    'Environment :: Console',
+    'Programming Language :: Python',
+    'Topic :: System :: Shells',
+    'Topic :: System :: System Shells',
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
