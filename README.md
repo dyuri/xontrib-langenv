@@ -7,6 +7,15 @@
 * [Goenv](https://github.com/syndbg/goenv)
 * [Rbenv](https://github.com/rbenv/rbenv)
 
+This xontrib replaces the slow `langenv` initialization with a faster python version (and skips the `rehash` step), which could save up to ~0.5s for each `lang`
+
+The only two exceptions are:
+
+  - `goenv`, which requires an extra `rehash --only-manage-paths` [init step](https://github.com/syndbg/goenv/blob/e1007619dbb180c8f8032a9dcdb7afbeb88e848a/libexec/goenv-init#L167) to set some more [environment variables](https://github.com/syndbg/goenv/blob/e1007619dbb180c8f8032a9dcdb7afbeb88e848a/libexec/goenv-sh-rehash#L24)
+  - `virtualenv-init`
+
+so if you rewrite that `goenv` env var setting and `pyenv` `virtualenv` init logic in python and xontribute to this xontrib, you could eliminate the last sources of xonsh langenv startup delay!
+
 ## Install
 
 Install using pip
