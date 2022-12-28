@@ -8,7 +8,7 @@ except (IOError, OSError):
 
 setup(
     name="xontrib-langenv",
-    version='1.0.8',
+    version='1.1.0',
     url='https://github.com/dyuri/xontrib-langenv',
     license='MIT',
     author='Gyuri Horák',
