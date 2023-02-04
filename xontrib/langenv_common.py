@@ -7,8 +7,14 @@ from os.path import join, exists
 from builtins import __xonsh__  # XonshSession (${...} is '__xonsh__.env')
 from xonsh.lib import subprocess as subproc
 
+is_cmd_cache_fresh = False
+
 def get_bin(base):
+    global is_cmd_cache_fresh
     bin = __xonsh__.commands_cache.lazy_locate_binary(base, ignore_alias=True)
+    if not bin and not is_cmd_cache_fresh:
+        is_cmd_cache_fresh = True
+        bin = __xonsh__.commands_cache.locate_binary( base, ignore_alias=True)
     if not bin:
         envx = __xonsh__.env
         PATH = envx.get("PATH")
