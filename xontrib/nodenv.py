@@ -2,12 +2,14 @@
 """
 import builtins
 import os
-from .langenv_common import get_bin, create_alias
-from builtins        import __xonsh__    # XonshSession (${...} is '__xonsh__.env')
+from builtins import __xonsh__  # XonshSession (${...} is '__xonsh__.env')
+
+from .langenv_common import create_alias, get_bin
+
 
 __all__ = ()
 
-base  = 'nodenv'
+base = "nodenv"
 NODENV = get_bin("nodenv")
 
 # check if nodenv installed
@@ -18,7 +20,7 @@ if NODENV:
     NODENV_ROOT = envx.get("NODENV_ROOT")
     if not NODENV_ROOT:
         NODENV_ROOT = f"{Home}/.{base}"
-    envx.get("PATH").add(f'{NODENV_ROOT}/shims', front=True) # prepend shims to PATH
+    envx.get("PATH").add(f"{NODENV_ROOT}/shims", front=True)  # prepend shims to PATH
     envx["NODENV_SHELL"] = "Python"
 
     create_alias(base, NODENV)
