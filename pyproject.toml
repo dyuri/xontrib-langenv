@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "xontrib-langenv"
-version = "1.2.1"
+version = "1.2.2"
 description = "Pyenv/Nodenv/Goenv/Rbenv integration for xonsh"
 authors = ["Gyuri Horak <dyuri@horak.hu>"]
 license = "MIT"
